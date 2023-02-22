@@ -10,7 +10,6 @@ func (r *Repo) RegisterUser(user User) {
 	VALUES($1, $2,$3)
 	`
 	_, err := Db.Exec(q,
-		//user.Username,
 		user.Email,
 		user.Password,
 		user.Role,

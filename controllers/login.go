@@ -14,7 +14,7 @@ import (
 func LoginGet(l models.Adder) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		//Get email & password
+		//Get email,password & role
 		loginBody := newUserRequest{}
 		if c.Bind(&loginBody) != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -24,7 +24,6 @@ func LoginGet(l models.Adder) gin.HandlerFunc {
 		}
 
 		user := models.User{
-			//Username: loginBody.Username,
 			Email:    loginBody.Email,
 			Password: loginBody.Password,
 			Role:     loginBody.Role,
@@ -61,6 +60,8 @@ func LoginGet(l models.Adder) gin.HandlerFunc {
 		if tokenerr != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "token erorr"})
 		}
+
+		//print token to check it
 		// c.JSON(http.StatusOK, gin.H{
 		// 	"token": tokenString,
 		// })
@@ -68,8 +69,6 @@ func LoginGet(l models.Adder) gin.HandlerFunc {
 		l.LoginUser(user)
 		c.SetSameSite(http.SameSiteLaxMode)
 		c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-
-		// c.Status(http.StatusNoContent)
-		//c.JSON(http.StatusOK,gin.H{"user has been found his role is ": user.Role})
+		c.JSON(http.StatusOK, gin.H{"message": "u r logged in"})
 	}
 }

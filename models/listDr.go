@@ -10,7 +10,7 @@ func (r *Repo) ListDoc() ([]Doctor, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	//Doctor to hold data from returned rows
+	///// Doctor to hold data from returned rows
 	var doctors []Doctor
 	// Loop through the first result set.
 	for rows.Next() {
