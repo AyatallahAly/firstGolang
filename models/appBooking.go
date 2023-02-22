@@ -13,6 +13,6 @@ func (r *Repo) AppBooking(appRead App) {
 		appRead.EndTime,
 	)
 	if err != nil {
-		log.Fatal("Errorrrrrrrrrrrrrrrrrrrrrrrrrr here ", err)
+		log.Fatal("Errorrrrrrrrrrrrrrrrrrrrrrr here ", err)
 	}
 }
