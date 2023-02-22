@@ -8,7 +8,7 @@ type User struct {
 	ID       int
 	Email    string `json:"email" db:"email" binding:"required"`
 	Password string `json:"password" db:"password" binding:"required"`
-	Role  string `json:"role" db:"role" binding:"required"`
+	Role     string `json:"role" db:"role" binding:"required"`
 }
 
 type Doctor struct {
@@ -38,7 +38,7 @@ type Repo struct {
 	Slots   []Slot
 }
 type Adder interface {
-	//BeforeSave(user User)
+	BeforeSave(user User) string
 	RegisterUser(user User)
 	LoginUser(user User)
 	ListDoc() ([]Doctor, error)
@@ -55,23 +55,5 @@ func New() *Repo {
 		Docrors: []Doctor{},
 		Apps:    []App{},
 		Slots:   []Slot{},
-
 	}
 }
-
-// func (r *Repo) BeforeSave(user User) error {
-
-// 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-// 	if err != nil {
-// 		log.Fatal("unable to hash password ", err)
-// 		return err
-// 	}
-// 	user.Password = string(hashedPassword)
-// 	return nil
-// }
-
-
-
-
-
-

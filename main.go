@@ -3,9 +3,6 @@ package main
 import (
 	"Ass/controllers"
 	"Ass/middlewares"
-	//"Ass/middlewares"
-
-	//"Ass/middlewares"
 	"Ass/models"
 
 	//"fmt"
@@ -29,12 +26,11 @@ func main() {
 	{
 		public := r.Group("/api")
 
-		//public.POST("/register", controllers.RegisterPost(testuser))
-		public.POST("/login", controllers.LoginGet(testuser))
-		//public.GET("/validate",middlewares.RequiredAuth, controllers.Validate)
-		//public.GET("/doclist", controllers.GetListDoc(testuser))
-		//public.GET("/docdataById", controllers.GetDrById(testuser))
-		public.GET("/booking",middlewares.RequiredAuth ,controllers.GetAppBooking(testuser))
+		public.POST("/register", controllers.RegisterPost(testuser))
+		public.POST("/login", middlewares.RequiredAuth, controllers.LoginGet(testuser))
+		public.GET("/doctors", controllers.GetListDoc(testuser))
+		public.GET("/doctors/id", controllers.GetDrById(testuser))
+		public.GET("/booking", middlewares.RequiredAuth, controllers.GetAppBooking(testuser))
 		//public.GET("/cancelBooking", controllers.GetCancelBooking(testuser))
 		//public.GET("/doctors/:doctorId/slots", controllers.GetSlotsBooking(testuser))
 		//protected.Use(middlewares.JwtAuthMiddleware())

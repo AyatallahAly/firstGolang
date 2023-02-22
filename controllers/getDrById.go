@@ -1,12 +1,8 @@
 package controllers
 
-//package controllers
-
 import (
-	//"Ass/middlewares"
 	"Ass/models"
 	"net/http"
-	//"time"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,7 +29,7 @@ func GetDrById(dr models.Adder) gin.HandlerFunc {
 		if err0 != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "call db and get doctordata"})
 		}
-
+		
 		//return data and print it out
 		finaldata, err := dr.DoctorsdataById(doctor.Docid)
 		if err != nil {
