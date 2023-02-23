@@ -33,8 +33,6 @@ func main() {
 		public.GET("/booking", middlewares.RequiredAuth, controllers.GetAppBooking(testuser))
 		public.GET("/cancelBooking", middlewares.RequiredAuth,controllers.GetCancelBooking(testuser))
 		public.GET("/doctors/:doctorId/slots", controllers.GetSlotsBooking(testuser))
-		//protected.Use(middlewares.JwtAuthMiddleware())
-		//protected.GET("/user",controllers.CurrentUser)
 		defer models.Db.Close()
 
 	}
