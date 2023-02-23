@@ -10,16 +10,16 @@ func (r *Repo) SlotsforeachDR(app App) ([]Slot, error) {
 
 	DrqTime := `
 	select DrStartTime,DrEndTime from DrTimes 
-	WHERE TimesDID=$1 AND date(DrStartTime)=$2;`
+WHERE DoctorID=$1 AND date(DrStartTime)=$2`
 	DrqTimeErr := Db.QueryRow(DrqTime, app.DoctorID, app.StartTime).Scan(&drstTime, &drETime)
 	if DrqTimeErr != nil {
-		log.Fatal("Doctor start and end time for Appointment")
+		log.Fatal("error in start & end time query")
 	}
 
 	q := `
-	select startTime,endtime  from appointment 
-	WHERE DoctorID=$1 AND date(startTime)=$2
-	ORDER BY StartTime;`
+	select startTime,endtime from appointment 
+WHERE DoctorID= $1 AND date(startTime)=$2 AND cancel ='false'
+ORDER BY StartTime`
 	rows, err := Db.Query(q, app.DoctorID, app.StartTime)
 	if err != nil {
 		log.Fatal("unable to execute search query", err)
@@ -55,8 +55,8 @@ func (r *Repo) SlotsforeachDR(app App) ([]Slot, error) {
 			avlTime[i].EndTime = slots[i].StartTime
 
 		}
-
 	}
+
 
 	// Check for any error in either result set.
 	if err := rows.Err(); err != nil {
